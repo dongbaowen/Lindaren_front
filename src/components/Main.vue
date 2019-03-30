@@ -79,6 +79,11 @@
           awesome-vue
         </a>
       </li>
+
+      <li>
+        <router-link to="/login">Login</router-link>
+      </li>
+
     </ul>
   </div>
 </template>
