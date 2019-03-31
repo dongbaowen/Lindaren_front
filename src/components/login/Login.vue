@@ -19,32 +19,12 @@ export default {
   },
   methods: {
     login() {
-      // http
-      //   .post("http://localhost:9090/user/login", {})
-      //   .then(data => {
-      //     console.log("res: ", data);
-      //   })
-      //   .catch(err => console.log(err));
-
-      // fetch("./static/data.json")
-      //   .then(res => res.json())
-      //   .then(data => {
-      //     console.log("res:", data);
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-
-      fetchJsonp("http://localhost:9090/user/login", {name: "zhangsan"})
-        .then(function(response) {
-          return response.json();
+      http
+        .post("http://localhost/api/test2/redis", {"id":"ok"})
+        .then(data => {
+          console.log("res: ", data);
         })
-        .then(function(json) {
-          console.log("parsed json", json);
-        })
-        .catch(function(ex) {
-          console.log("parsing failed", ex);
-        });
+        .catch(err => console.log(err));
     }
   }
 };
