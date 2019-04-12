@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import { Button, Layout, Row, Col, Form, Input, Header, Sider, Content, Footer } from 'ant-design-vue'
+import { Button, Layout, Row, Col, Form, Input, Menu, Icon } from 'ant-design-vue'
 
 Vue.use(Button)
 Vue.use(Layout)
@@ -11,10 +11,8 @@ Vue.use(Row)
 Vue.use(Col)
 Vue.use(Form)
 Vue.use(Input)
-Vue.use(Header)
-Vue.use(Sider)
-Vue.use(Content)
-Vue.use(Footer)
+Vue.use(Menu)
+Vue.use(Icon)
 
 Vue.config.productionTip = false
 
