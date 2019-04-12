@@ -53,9 +53,9 @@ export default {
     };
   },
   methods: {
-    login() {
+    unfreeze() {
       http
-        .post("http://localhost/api/user/login", {
+        .post("http://localhost/api/user/unfreeze", {
           email: this.email,
           password: this.password
         })

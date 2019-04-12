@@ -86,6 +86,9 @@
       <li>
         <router-link to="/homePage">HomePage</router-link>
       </li>
+      <li>
+        <router-link to="/unfreeze">unfreeze</router-link>
+      </li>
     </ul>
   </div>
 </template>

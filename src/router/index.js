@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Main from '@/components/Main'
 import Login from '@/components/login/Login'
 import HomePage from '@/components/homePage/homePage'
+import Unfreeze from '@/components/unfreeze/unfreeze'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/homePage',
       name: 'homePage',
       component: HomePage
+    },
+    {
+      path: '/unfreeze',
+      name: 'unfreeze',
+      component: Unfreeze
     }
   ]
 })
