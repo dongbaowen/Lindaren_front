@@ -3,9 +3,9 @@
     <a-row>
       <a-col :span="8"></a-col>
       <a-col :span="8">
-        <div id="login-form">
+        <div id="login-box">
           <div class="form-header"></div>
-          <a-form :form="form" @submit="login">
+          <a-form :form="form">
             <div class="form-item-container">
               <a-form-item label="邮箱">
                 <a-input id="email" v-model="email" placeholder="请填写邮箱"/>
@@ -13,8 +13,21 @@
               <a-form-item label="密码">
                 <a-input id="password" v-model="password" placeholder="请填写密码"/>
               </a-form-item>
-              <a-button id="btn-submit" type="primary" html-type="submit">登录</a-button>
+              <a-button class="btn-submit" id="btn-submit-login" @click="login" type="primary">登录</a-button>
             </div>
+          </a-form>
+
+          <a-form id="register-form" :form="form">
+            <a-form-item label="邮箱" :label-col="{ span: 6 }" :wrapper-col="{ span: 13 ,offset: 1}">
+              <a-input id="userEmail" v-model="userEmail"/>
+            </a-form-item>
+            <a-form-item label="密码" :label-col="{ span: 6 }" :wrapper-col="{ span: 13 ,offset: 1}">
+              <a-input id="userPassword" v-model="userPassword"/>
+            </a-form-item>
+            <a-form-item label="昵称" :label-col="{ span: 6 }" :wrapper-col="{ span: 13 ,offset: 1}">
+              <a-input id="userNickname" v-model="userNickname"/>
+            </a-form-item>
+            <a-button class="btn-submit" id="btn-submit-rigister" @click="register" type="primary">注册</a-button>
           </a-form>
         </div>
       </a-col>
@@ -31,18 +44,30 @@ export default {
     return {
       form: this.$form.createForm(this),
       email: "",
-      password: ""
+      password: "",
+      userEmail: "",
+      userPassword: "",
+      userNickname: ""
     };
   },
   methods: {
-    handleSubmit(e) {
-      console.log(this.email);
-    },
     login() {
       http
-        .post("http://127.0.0.1/api/user/login", {
+        .post("http://localhost/api/user/login", {
           email: this.email,
           password: this.password
+        })
+        .then(data => {
+          console.log("res: ", data);
+        })
+        .catch(err => console.log(err));
+    },
+    register() {
+      http
+        .post("http://localhost/api/user/register", {
+          userEmail: this.userEmail,
+          userPassword: this.userPassword,
+          userNickname: this.userNickname
         })
         .then(data => {
           console.log("res: ", data);
@@ -55,17 +80,20 @@ export default {
 
 <style scoped>
 #login-form {
+  display: none;
+}
+#login-box {
   height: 500px;
   margin: 60px 20px;
   background-color: #fff;
   border-radius: 2px;
   padding: 0px 40px;
 }
-#login-form .form-header {
+#login-box .form-header {
   padding-top: 30px;
   height: 130px;
 }
-#btn-submit {
+.btn-submit {
   width: 300px;
   height: 40px;
   border-radius: 0px;
