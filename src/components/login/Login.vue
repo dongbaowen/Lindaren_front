@@ -1,38 +1,54 @@
 <template>
-  <div id="login-container">
-    <a-row>
-      <a-col :span="8"></a-col>
-      <a-col :span="8">
-        <div id="login-box">
-          <div class="form-header"></div>
-          <a-form :form="form">
-            <div class="form-item-container">
-              <a-form-item label="邮箱">
-                <a-input id="email" v-model="email" placeholder="请填写邮箱"/>
-              </a-form-item>
-              <a-form-item label="密码">
-                <a-input id="password" v-model="password" placeholder="请填写密码"/>
-              </a-form-item>
-              <a-button class="btn-submit" id="btn-submit-login" @click="login" type="primary">登录</a-button>
-            </div>
-          </a-form>
+  <div id="main-container">
+    <div id="login-container">
+      <div id="login-box">
+        <div class="form-header"></div>
+        <a-form v-show="isShowLogin" :form="form">
+          <div class="form-item-container">
+            <a-form-item label="邮箱">
+              <a-input id="email" v-model="email" class="login-input" placeholder="请填写邮箱"/>
+            </a-form-item>
+            <a-form-item label="密码">
+              <a-input id="password" v-model="password" class="login-input" placeholder="请填写密码"/>
+            </a-form-item>
+            <a-button class="btn-submit" id="btn-submit-login" @click="login" type="primary">登录</a-button>
+          </div>
+        </a-form>
 
-          <a-form id="register-form" :form="form">
-            <a-form-item label="邮箱" :label-col="{ span: 6 }" :wrapper-col="{ span: 13 ,offset: 1}">
-              <a-input id="userEmail" v-model="userEmail"/>
+        <a-form v-show="isShowRegister" :form="form">
+          <div class="form-item-container">
+            <a-form-item label="邮箱">
+              <a-input id="userEmail" v-model="userEmail" class="login-input" placeholder="请填写邮箱"/>
             </a-form-item>
-            <a-form-item label="密码" :label-col="{ span: 6 }" :wrapper-col="{ span: 13 ,offset: 1}">
-              <a-input id="userPassword" v-model="userPassword"/>
+            <a-form-item label="密码">
+              <a-input
+                id="userPassword"
+                v-model="userPassword"
+                class="login-input"
+                placeholder="请填写密码"
+              />
             </a-form-item>
-            <a-form-item label="昵称" :label-col="{ span: 6 }" :wrapper-col="{ span: 13 ,offset: 1}">
-              <a-input id="userNickname" v-model="userNickname"/>
+            <a-form-item label="昵称">
+              <a-input
+                id="userNickname"
+                v-model="userNickname"
+                class="login-input"
+                placeholder="请填写昵称"
+              />
             </a-form-item>
-            <a-button class="btn-submit" id="btn-submit-rigister" @click="register" type="primary">注册</a-button>
-          </a-form>
-        </div>
-      </a-col>
-      <a-col :span="8"></a-col>
-    </a-row>
+          </div>
+          <a-button class="btn-submit" id="btn-submit-rigister" @click="register" type="primary">注册</a-button>
+        </a-form>
+      </div>
+      <div id="switch-box">
+        <span v-show="isShowRegister" class="bottom-text">已有账号？</span>
+        <span v-show="isShowLogin" class="bottom-text">没有账号？</span>
+        <a-button id="btn-switch" @click="doSwitch" type="primary">
+          <span v-show="isShowRegister" class="bottom-text">登录</span>
+          <span v-show="isShowLogin" class="bottom-text">注册</span>
+        </a-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -47,7 +63,9 @@ export default {
       password: "",
       userEmail: "",
       userPassword: "",
-      userNickname: ""
+      userNickname: "",
+      isShowRegister: false,
+      isShowLogin: true
     };
   },
   methods: {
@@ -73,6 +91,10 @@ export default {
           console.log("res: ", data);
         })
         .catch(err => console.log(err));
+    },
+    doSwitch() {
+      this.isShowRegister = !this.isShowRegister;
+      this.isShowLogin = !this.isShowLogin;
     }
   }
 };
@@ -82,19 +104,26 @@ export default {
 #login-form {
   display: none;
 }
-#login-box {
-  height: 500px;
-  margin: 60px 20px;
-  background-color: #fff;
+#login-container {
+  margin: 0 auto;
+  margin-top: 60px;
   border-radius: 2px;
-  padding: 0px 40px;
+  width: 430px;
+}
+#login-box {
+  min-height: 450px;
+  background-color: #fff;
+  padding: 0px 50px 20px 50px;
+}
+.login-input {
+  height: 45px;
 }
 #login-box .form-header {
   padding-top: 30px;
   height: 130px;
 }
 .btn-submit {
-  width: 300px;
+  width: 100%;
   height: 40px;
   border-radius: 0px;
   font-size: 16px;
@@ -103,7 +132,7 @@ export default {
 .form-item-container {
   text-align: left;
 }
-#login-container {
+#main-container {
   text-align: center;
   height: 100%;
   background-image: url("../../assets/sign_bg.db29b0fb.png");
@@ -115,7 +144,9 @@ export default {
   overflow: auto;
   padding-right: 15px;
 }
-#login-container .ant-row {
-  height: 100%;
+#switch-box {
+  height: 60px;
+  background-color: #f6f6f6;
+  padding: 15px;
 }
 </style>
